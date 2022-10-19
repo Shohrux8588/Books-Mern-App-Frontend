@@ -1,0 +1,16 @@
+[
+  {
+    "en": {
+      "MainTitle": "Books",
+      "Tooltip.Theme": "Change Theme",
+      "Tooltip.Language": "Select Language"
+    }
+  },
+  {
+    "uz": {
+      "MainTitle": "Kitoblar",
+      "Tooltip.Theme": "Rangni O'zgartirish",
+      "Tooltip.Language": "Tilni Tanlash"
+    }
+  }
+]
