@@ -8,6 +8,7 @@ import { List, Divider, Typography, Grid, Box } from "@mui/material";
 import Book from "./Book/Book";
 
 import { fetchBooks } from "../../store/actions/booksActions";
+import useUserContext from "./../../hooks/useUserContext";
 
 const BooksSection = () => {
   const dispatch = useDispatch();

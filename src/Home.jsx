@@ -19,6 +19,7 @@ import Collection from "./pages/Collection.jsx";
 import CreateCollection from "./pages/CreateCollection.jsx";
 import EditCollection from "./pages/EditCollection.jsx";
 import Users from "./pages/Users.jsx";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 
 const Home = () => {
   const { state } = useContext(UserContext);
@@ -43,7 +44,9 @@ const Home = () => {
         <Route path={routes.COLLECTIONS.SINGLE} element={<Collection />} />
         <Route path={routes.COLLECTIONS.NEW} element={<CreateCollection />} />
         <Route path={routes.COLLECTIONS.EDIT} element={<EditCollection />} />
-        <Route path={routes.USERS.HOME} element={<Users/>}/>
+        <Route element={<ProtectedRoutes />}>
+          <Route path={routes.USERS.HOME} element={<Users />} />
+        </Route>
       </Routes>
     </Container>
   );

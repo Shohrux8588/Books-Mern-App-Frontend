@@ -13,6 +13,8 @@ import {
   Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import UserContext from "../context/UserContext";
 import useFetch from "./../hooks/useFetch";
 
@@ -152,6 +154,30 @@ const SignUp = () => {
             <Grid item>
               <Link to="/login">{t("Signup.HelpText")} </Link>
             </Grid>
+            {error && (
+              <Grid item>
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  color="error"
+                  textAlign="center"
+                >
+                  Something went wrong
+                </Typography>
+              </Grid>
+            )}
+            {loading && (
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                mt={2}
+              >
+                <CircularProgress />
+              </Grid>
+            )}
           </Grid>
         </Box>
       </Box>

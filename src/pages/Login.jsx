@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
@@ -13,11 +13,13 @@ import {
   Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import useUserContext from "./../hooks/useUserContext";
 import useFetch from "../hooks/useFetch";
 
 const Login = () => {
+  const [isBlocked, setIsBlocked] = useState(false);
   const { t } = useTranslation();
   const {
     formState: { errors },
@@ -36,8 +38,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (!loading && !error && data) {
+    if (!loading && !error && data && !data.blocked) {
       userContext.login(data);
+    } else if (!loading && !error && data && data.blocked) {
+      setIsBlocked(data.blocked);
     }
   }, [data]);
 
@@ -146,6 +150,42 @@ const Login = () => {
             <Grid item>
               <Link to="/signup">{t("Login.HelpText")}</Link>
             </Grid>
+            {isBlocked && (
+              <Grid item>
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  color="error"
+                  textAlign="center"
+                >
+                  You are blocked try another account
+                </Typography>
+              </Grid>
+            )}
+            {error && (
+              <Grid item>
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  color="error"
+                  textAlign="center"
+                >
+                  Something went wrong
+                </Typography>
+              </Grid>
+            )}
+            {loading && (
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                mt={2}
+              >
+                <CircularProgress />
+              </Grid>
+            )}
           </Grid>
         </Box>
       </Box>

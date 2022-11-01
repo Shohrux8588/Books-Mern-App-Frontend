@@ -30,6 +30,7 @@ const Collection = () => {
   const collectionsState = state.collections;
   const booksState = state.books;
   const userContext = useUserContext();
+  const isUser = !!userContext.state.token;
 
   useEffect(() => {
     dispatch(fetchCollection(id));
@@ -160,22 +161,25 @@ const Collection = () => {
             ))}
         </Stack>
       </Box>
-      <Box component="form" onSubmit={handleSubmit}>
-        <TextField
-          id="comment"
-          label="Comment"
-          variant="standard"
-          value={comment}
-          onChange={handleChange}
-        />
-        <Button
-          type="submit"
-          sx={{ display: "block", m: 1 }}
-          variant="outlined"
-        >
-          ADD
-        </Button>
-      </Box>
+      {isUser && (
+        <Box component="form" onSubmit={handleSubmit}>
+          <TextField
+            id="comment"
+            label="Comment"
+            variant="standard"
+            value={comment}
+            onChange={handleChange}
+          />
+          <Button
+            type="submit"
+            sx={{ display: "block", m: 1 }}
+            variant="outlined"
+          >
+            ADD
+          </Button>
+        </Box>
+      )}
+
       <Box
         sx={{
           position: "absolute",
@@ -186,7 +190,6 @@ const Collection = () => {
         {isUserLiked ? <LikeIcon /> : <LikeOutlinedIcon />}
         {likes && likes.length}
       </Box>
-
       <Typography
         sx={{
           position: "absolute",

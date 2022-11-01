@@ -16,10 +16,13 @@ import AddIcon from "@mui/icons-material/Add";
 import Book from "../components/Books/Book/Book";
 import { fetchBooks } from "./../store/actions/booksActions";
 import { Link } from "react-router-dom";
+import useUserContext from "./../hooks/useUserContext";
 const Books = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const booksState = useSelector((state) => state.books);
+  const userContext = useUserContext();
+  const isUser = !!userContext.state.token;
 
   useEffect(() => {
     dispatch(fetchBooks());
@@ -41,20 +44,22 @@ const Books = () => {
         {t("Sections.Books")}
       </Typography>
       <List sx={{ width: 1000, maxWidth: "100%", bgcolor: "background.paper" }}>
-        <ListItem>
-          <Tooltip title={t("Button.AddBook")}>
-            <ListItemText
-              sx={{ textAlign: "center" }}
-              primary={
-                <Link to="/books/new">
-                  <Fab color="secondary">
-                    <AddIcon />
-                  </Fab>
-                </Link>
-              }
-            />
-          </Tooltip>
-        </ListItem>
+        {isUser && (
+          <ListItem>
+            <Tooltip title={t("Button.AddBook")}>
+              <ListItemText
+                sx={{ textAlign: "center" }}
+                primary={
+                  <Link to="/books/new">
+                    <Fab color="secondary">
+                      <AddIcon />
+                    </Fab>
+                  </Link>
+                }
+              />
+            </Tooltip>
+          </ListItem>
+        )}
         {booksState.books &&
           booksState.books.map((book) => (
             <Fragment key={book._id}>

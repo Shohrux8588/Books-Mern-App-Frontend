@@ -94,16 +94,19 @@ const CustomMenu = () => {
             </ListItemButton>
           </ListItem>
         </CustomLink>
-        <CustomLink to="/users">
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GroupIcon />
-              </ListItemIcon>
-              <ListItemText primary={t("Menu.Users")} />
-            </ListItemButton>
-          </ListItem>
-        </CustomLink>
+        {userContext.state.role === "admin" && (
+          <CustomLink to="/users">
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <GroupIcon />
+                </ListItemIcon>
+                <ListItemText primary={t("Menu.Users")} />
+              </ListItemButton>
+            </ListItem>
+          </CustomLink>
+        )}
+
         <CustomLink to="/books">
           <ListItem disablePadding>
             <ListItemButton>
