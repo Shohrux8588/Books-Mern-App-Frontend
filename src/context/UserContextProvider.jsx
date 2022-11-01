@@ -1,45 +1,44 @@
-import React, { useDispatch } from "react";
+import React, { useReducer, useEffect } from "react";
 
 import UserContext from "./UserContext.jsx";
-import {
-  LOGIN_USER,
-  LOGOUT_USER,
-  TOGGLE_THEME,
-  CHANGE_LANGUAGE,
-} from "./UserActionTypes";
+import { LOGIN_USER, LOGOUT_USER } from "./UserActionTypes";
+
+const initialState = { email: "", token: "", role: "", _id: "" };
 
 const userReducer = (state, action) => {
   switch (action.type) {
     case LOGIN_USER:
-      return { ...state, user: action.payload };
+      return { ...action.payload };
     case LOGOUT_USER:
-      return { ...state, user: null };
-    case TOGGLE_THEME:
-      return { ...state, theme: !state.theme };
-    case CHANGE_LANGUAGE:
-      return { ...state, lng: action.payload };
+      return initialState;
+
     default:
       return state;
   }
 };
 
 const UserContextProvider = ({ children }) => {
-  const [state, dispatch] = useDispatch(userReducer, {
-    user: null,
-    theme: "light",
-    lng: "en",
-  });
+  const [state, dispatch] = useReducer(userReducer, initialState);
 
-  const loginUser = (user) => dispatch({ type: LOGIN_USER, payload: user });
-  const logoutUser = () => dispatch({ type: LOGOUT_USER });
-  const toggleTheme = () => dispatch({ type: TOGGLE_THEME });
-  const changeLanguage = (lng) =>
-    dispatch({ type: CHANGE_LANGUAGE, payload: lng });
+  const login = (user) => {
+    localStorage.setItem("user", JSON.stringify({ ...user }));
+    dispatch({ type: LOGIN_USER, payload: { ...user } });
+  };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    dispatch({ type: LOGOUT_USER });
+  };
+
+  useEffect(() => {
+    const userFromLocalStorage = localStorage.getItem("user");
+    if (userFromLocalStorage) {
+      login(JSON.parse(userFromLocalStorage));
+    }
+  }, []);
 
   return (
-    <UserContext.Provider
-      value={{ state, loginUser, logoutUser, toggleTheme, changeLanguage }}
-    >
+    <UserContext.Provider value={{ state, login, logout }}>
       {children}
     </UserContext.Provider>
   );

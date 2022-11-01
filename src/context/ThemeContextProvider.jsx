@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -6,7 +6,15 @@ import CssBaseline from "@mui/material/CssBaseline";
 export const ThemeContext = createContext();
 
 export const ThemeContextProvider = ({ children }) => {
-  const [mode, setMode] = useState("light");
+  const themeFromLocalStorage = localStorage.getItem("theme");
+
+  const [mode, setMode] = useState(() => {
+    return themeFromLocalStorage || "light";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", mode);
+  }, [mode]);
 
   const colorMode = React.useMemo(
     () => ({
@@ -26,6 +34,7 @@ export const ThemeContextProvider = ({ children }) => {
       }),
     [mode]
   );
+
   return (
     <ThemeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

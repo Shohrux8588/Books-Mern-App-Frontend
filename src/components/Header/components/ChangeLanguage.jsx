@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
@@ -19,8 +19,12 @@ const ChangeLanguage = () => {
   const { t } = useTranslation();
   const [openTooltip, setOpenTooltip] = useState(false);
 
+  useEffect(() => {
+    localStorage.setItem("language", i18n.language);
+  }, [i18n.language]);
+
   return (
-    <Grid item xs={6} sx={{ textAlign: "center" }}>
+    <Grid item xs={4} sx={{ textAlign: "center" }}>
       <Tooltip
         title={t("Tooltip.Language")}
         placement="left-end"
@@ -33,7 +37,7 @@ const ChangeLanguage = () => {
           value={i18n.language}
           onChange={(e) => i18n.changeLanguage(e.target.value)}
           sx={{
-            minWidth: 120,
+            minWidth: 110,
             height: 40,
             boxShadow: "none",
             ".MuiOutlinedInput-notchedOutline": { border: 0 },
@@ -54,7 +58,7 @@ const ChangeLanguage = () => {
                     width: "100%",
                     maxWidth: "40px",
                   }}
-                  alt="The house from the offer."
+                  alt="Language"
                   src={ukFlagPng}
                 />{" "}
               </Grid>

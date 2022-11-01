@@ -1,11 +1,9 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 
 const UserContext = createContext({
-  state: { user: null, lng: "en", theme: "light" },
+  user: { email: "", password: "" },
   login: () => {},
   logout: () => {},
-  toggleTheme: () => {},
-  changeLanguage: () => {},
 });
 
 export default UserContext;

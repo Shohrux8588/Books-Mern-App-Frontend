@@ -14,18 +14,14 @@ const ToggleTheme = () => {
   const themeContext = useThemeContext();
 
   return (
-    <Grid item xs={6} sx={{ textAlign: "center" }}>
+    <Grid item xs={4} sx={{ textAlign: "center" }}>
       <Tooltip
         title={t("Tooltip.Theme")}
         TransitionComponent={Zoom}
         arrow
         placement="bottom-end"
       >
-        <IconButton
-          sx={{ ml: 1 }}
-          onClick={themeContext.toggleColorMode}
-          color="inherit"
-        >
+        <IconButton onClick={themeContext.toggleColorMode} color="inherit">
           {theme.palette.mode === "light" ? (
             <Brightness7Icon />
           ) : (
