@@ -177,7 +177,7 @@ const EditCollection = () => {
   }, [collection]);
   useEffect(() => {
     dispatch(fetchBooks());
-  }, []);
+  }, [dispatch]);
 
   const handleKeyUp = (e) => {
     if (e.keyCode === 32) {

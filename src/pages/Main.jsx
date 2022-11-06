@@ -9,7 +9,6 @@ import useUserContext from "./../hooks/useUserContext";
 
 const Main = () => {
   const useContext = useUserContext();
-  console.log(useContext);
   return (
     <Container>
       {useContext.state.role === "admin" && <UsersSection />}

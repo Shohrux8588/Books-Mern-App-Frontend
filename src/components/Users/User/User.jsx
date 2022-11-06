@@ -17,7 +17,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import useUserContext from "./../../../hooks/useUserContext";
 import { deleteUser } from "../../../store/actions/usersActions";
 import { editUser } from "./../../../store/actions/usersActions";
-import DeleteBookDialog from "./../../DeleteDialog/DeleteBookDialog";
+import DeleteDialog from "./../../DeleteDialog/DeleteDialog";
 
 const User = ({ email, role, blocked, _id, loading }) => {
   const { t } = useTranslation();
@@ -64,7 +64,7 @@ const User = ({ email, role, blocked, _id, loading }) => {
           <Tooltip title={t("Icons.Delete")}>
             <IconButton>
               {" "}
-              <DeleteBookDialog handleDelete={handleDelete} loading={loading} />
+              <DeleteDialog handleDelete={handleDelete} loading={loading} />
             </IconButton>
           </Tooltip>
         </Stack>

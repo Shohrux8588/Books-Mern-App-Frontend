@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { List, Divider, Typography, Grid, Box } from "@mui/material";
@@ -8,7 +7,7 @@ import { List, Divider, Typography, Grid, Box } from "@mui/material";
 import Book from "./Book/Book";
 
 import { fetchBooks } from "../../store/actions/booksActions";
-import useUserContext from "./../../hooks/useUserContext";
+import CustomLink from "../Link/CustomLink";
 
 const BooksSection = () => {
   const dispatch = useDispatch();
@@ -32,12 +31,7 @@ const BooksSection = () => {
         variant="h4"
         gutterBottom
       >
-        <Link
-          to="/books"
-          style={{ color: "inherit", textDecoration: "inherit" }}
-        >
-          {t("Sections.Books")}
-        </Link>
+        <CustomLink to="/books">{t("Sections.Books")}</CustomLink>
       </Typography>
 
       <List sx={{ width: 1000, maxWidth: "100%", bgcolor: "background.paper" }}>

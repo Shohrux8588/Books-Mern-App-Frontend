@@ -15,8 +15,8 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import Book from "../components/Books/Book/Book";
 import { fetchBooks } from "./../store/actions/booksActions";
-import { Link } from "react-router-dom";
 import useUserContext from "./../hooks/useUserContext";
+import CustomLink from "../components/Link/CustomLink";
 const Books = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -50,11 +50,11 @@ const Books = () => {
               <ListItemText
                 sx={{ textAlign: "center" }}
                 primary={
-                  <Link to="/books/new">
+                  <CustomLink to="/books/new">
                     <Fab color="secondary">
                       <AddIcon />
                     </Fab>
-                  </Link>
+                  </CustomLink>
                 }
               />
             </Tooltip>

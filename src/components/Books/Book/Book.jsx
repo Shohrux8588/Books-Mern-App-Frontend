@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
-import { Link } from "react-router-dom";
 import {
   Box,
   IconButton,
@@ -11,15 +10,15 @@ import {
   Stack,
   Tooltip,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 
-import DeleteBookDialog from "./DeleteBookDialog/DeleteBookDialog";
 import useUserContext from "./../../../hooks/useUserContext";
-import { editBook } from "../../../store/actions/booksActions";
+import { deleteBook, editBook } from "../../../store/actions/booksActions";
+import DeleteDialog from "../../DeleteDialog/DeleteDialog";
+import CustomLink from "../../Link/CustomLink";
 
 const Book = ({ name, _id, likes, loading, authorId }) => {
   const { t } = useTranslation();
@@ -39,17 +38,14 @@ const Book = ({ name, _id, likes, loading, authorId }) => {
     dispatch(editBook(userContext.state.token, _id, { likes }));
   };
 
+  const handleDelete = () => {
+    dispatch(deleteBook(userContext.state.token, _id));
+  };
+
   return (
     <ListItem key={_id}>
       <ListItemText
-        primary={
-          <Link
-            style={{ color: "inherit", textDecoration: "inherit" }}
-            to={`/books/${_id}`}
-          >
-            {name}
-          </Link>
-        }
+        primary={<CustomLink to={`/books/${_id}`}>{name}</CustomLink>}
       />
       {isUser && (
         <Stack edge="end" direction="row" spacing={1}>
@@ -67,20 +63,14 @@ const Book = ({ name, _id, likes, loading, authorId }) => {
             <>
               <Tooltip title={t("Icons.Edit")}>
                 <IconButton edge="end" aria-label="edit">
-                  <Link to={`edit/${_id}`}>
+                  <CustomLink to={`edit/${_id}`}>
                     <EditIcon color="primary" />
-                  </Link>
+                  </CustomLink>
                 </IconButton>
               </Tooltip>
               <Tooltip title={t("Icons.Delete")}>
                 <IconButton edge="end" aria-label="delete">
-                  <DeleteBookDialog
-                    _id={_id}
-                    token={userContext.state.token}
-                    loading={loading}
-                  >
-                    <DeleteIcon color="error" />
-                  </DeleteBookDialog>
+                  <DeleteDialog loading={loading} handleDelete={handleDelete} />
                 </IconButton>
               </Tooltip>
             </>

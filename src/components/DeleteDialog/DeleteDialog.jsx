@@ -10,20 +10,12 @@ import { useTheme } from "@mui/material/styles";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import useUserContext from "../../../../hooks/useUserContext";
-import { deleteCollection } from "../../../../store/actions/collectionsActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const DeleteBookDialog = ({ _id = "" }) => {
-  const dispatch = useDispatch();
+const DeleteDialog = ({ handleDelete, loading }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
-  const collectionsState = useSelector((state) => state.collections);
-
-  const userContext = useUserContext();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,11 +23,6 @@ const DeleteBookDialog = ({ _id = "" }) => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const deleteBook = () => {
-    dispatch(deleteCollection(userContext.state.token, _id));
-    handleClose();
   };
 
   return (
@@ -65,11 +52,11 @@ const DeleteBookDialog = ({ _id = "" }) => {
           <Button autoFocus onClick={handleClose}>
             No
           </Button>
-          <Button onClick={deleteBook} autoFocus>
+          <Button onClick={handleDelete} autoFocus>
             Yes
           </Button>
         </DialogActions>
-        {collectionsState.loading && (
+        {loading && (
           <Box sx={{ width: "100%" }}>
             <LinearProgress />
           </Box>
@@ -79,4 +66,4 @@ const DeleteBookDialog = ({ _id = "" }) => {
   );
 };
 
-export default DeleteBookDialog;
+export default DeleteDialog;

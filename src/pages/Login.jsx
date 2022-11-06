@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 
@@ -17,6 +16,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import useUserContext from "./../hooks/useUserContext";
 import useFetch from "../hooks/useFetch";
+import CustomLink from "../components/Link/CustomLink";
 
 const Login = () => {
   const [isBlocked, setIsBlocked] = useState(false);
@@ -148,7 +148,7 @@ const Login = () => {
             sx={{ alignItems: "center", justifyContent: "center" }}
           >
             <Grid item>
-              <Link to="/signup">{t("Login.HelpText")}</Link>
+              <CustomLink to="/signup">{t("Login.HelpText")}</CustomLink>
             </Grid>
             {isBlocked && (
               <Grid item>

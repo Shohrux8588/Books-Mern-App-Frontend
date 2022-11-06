@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { Grid, Typography } from "@mui/material";
 
 import ChangeLanguage from "./components/ChangeLanguage.jsx";
 import ToggleTheme from "./components/ToggleTheme.jsx";
 import CustomMenu from "./components/CustomMenu";
+import CustomLink from "../Link/CustomLink.jsx";
 
 const Header = () => {
   return (
@@ -20,11 +20,11 @@ const Header = () => {
         alignItems="center"
       >
         <CustomMenu />
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <CustomLink to="/">
           <Typography color="primary" variant="h4">
             MENU
           </Typography>
-        </Link>
+        </CustomLink>
       </Grid>
 
       <Grid

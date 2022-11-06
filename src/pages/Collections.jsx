@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -17,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { fetchCollections } from "./../store/actions/collectionsActions";
 import Collection from "./../components/Collections/Collection/Collection";
+import CustomLink from "../components/Link/CustomLink";
 
 const Collections = () => {
   const { t } = useTranslation();
@@ -48,11 +48,11 @@ const Collections = () => {
             <ListItemText
               sx={{ textAlign: "center" }}
               primary={
-                <Link to="/collections/new">
+                <CustomLink to="/collections/new">
                   <Fab color="secondary">
                     <AddIcon />
                   </Fab>
-                </Link>
+                </CustomLink>
               }
             />
           </Tooltip>
@@ -61,7 +61,7 @@ const Collections = () => {
           collectionsState.collections.map((collection) => (
             <Fragment key={collection._id}>
               {" "}
-              <Collection {...collection} />
+              <Collection {...collection} loading={collectionsState.loading} />
               <Divider />
             </Fragment>
           ))}

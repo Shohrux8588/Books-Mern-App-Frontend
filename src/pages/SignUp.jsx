@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 
@@ -17,6 +16,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import UserContext from "../context/UserContext";
 import useFetch from "./../hooks/useFetch";
+import CustomLink from "../components/Link/CustomLink";
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -152,7 +152,7 @@ const SignUp = () => {
             sx={{ alignItems: "center", justifyContent: "center" }}
           >
             <Grid item>
-              <Link to="/login">{t("Signup.HelpText")} </Link>
+              <CustomLink to="/login">{t("Signup.HelpText")} </CustomLink>
             </Grid>
             {error && (
               <Grid item>

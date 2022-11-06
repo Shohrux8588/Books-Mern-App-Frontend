@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { fetchApi } from "./../services/api";
 
 const useFetch = () => {

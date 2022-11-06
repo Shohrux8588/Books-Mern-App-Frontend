@@ -1,13 +1,13 @@
 import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import { Divider, List, Typography, Grid } from "@mui/material";
 
 import Collection from "./Collection/Collection";
 
 import { fetchCollections } from "../../store/actions/collectionsActions";
+import CustomLink from "../Link/CustomLink";
 
 const CollectionsSection = () => {
   const { t } = useTranslation();
@@ -17,7 +17,6 @@ const CollectionsSection = () => {
   useEffect(() => {
     dispatch(fetchCollections());
   }, [dispatch]);
-
   return (
     <Grid
       container
@@ -31,18 +30,13 @@ const CollectionsSection = () => {
         sx={{ textAlign: "center" }}
         gutterBottom
       >
-        <Link
-          to="/collections"
-          style={{ color: "inherit", textDecoration: "inherit" }}
-        >
-          {t("Sections.Collections")}
-        </Link>
+        <CustomLink to="/collections">{t("Sections.Collections")}</CustomLink>
       </Typography>
       <List sx={{ width: 1000, maxWidth: "100%", bgcolor: "background.paper" }}>
         {collectionsState.collections &&
           collectionsState.collections.slice(0, 5).map((collection) => (
             <Fragment key={collection._id}>
-              <Collection {...collection} />
+              <Collection {...collection} loading={collectionsState.loading} />
               <Divider />
             </Fragment>
           ))}
